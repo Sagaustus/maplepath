@@ -8,7 +8,7 @@
     "french": "Français"
   },
   "home": {
-    "title": "Bienvenue sur Maplepath",
+    "title": "Commencez par modifier",
     "subtitle": "Créez des expériences inclusives avec une base Next.js prête à l'emploi.",
     "cta": "Consulter la documentation",
     "ctaDescription": "Lisez le guide du projet dans le README.",
@@ -29,6 +29,7 @@
     },
     "gettingStartedHeading": "Pour commencer",
     "gettingStartedDescription": "Utilisez la documentation pour personnaliser le style, ajouter des sections et déployer en toute confiance.",
-    "footerNote": "Conçu en pensant à l'accessibilité et aux utilisateurs du monde entier."
+    "footerNote": "Conçu en pensant à l'accessibilité et aux utilisateurs du monde entier.",
+    "Vercel": "Par"
   }
 }

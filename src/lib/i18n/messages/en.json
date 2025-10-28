@@ -8,7 +8,7 @@
     "french": "Français"
   },
   "home": {
-    "title": "Welcome to Maplepath",
+    "title": "Get started by editing",
     "subtitle": "Build inclusive experiences with a ready-to-launch Next.js foundation.",
     "cta": "Explore documentation",
     "ctaDescription": "Read the project guide in the README.",
@@ -29,6 +29,7 @@
     },
     "gettingStartedHeading": "Get started",
     "gettingStartedDescription": "Use the documentation to customise styling, add new content sections, and deploy with confidence.",
-    "footerNote": "Crafted with accessibility and global users in mind."
+    "footerNote": "Crafted with accessibility and global users in mind.",
+    "Vercel": "By"
   }
 }
