@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 import { TranslationsProvider } from "@/lib/i18n/translation-context";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import type { AppLocale } from "@/lib/i18n/config";
-import QuickExitButton from "../components/ui/QuickExitButton";
+import QuickExitButton from "@/components/ui/QuickExitButton";
 import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
