@@ -26,14 +26,22 @@ function getNestedValue(obj: any, pathSegments: string[]): any {
 export function translate(
   locale: string,
   key: string,
-  options?: { fallback?: string }
+  options?: { fallback?: string; translations?: Record<string, any> }
 ): string {
   const pathSegments = key.split(".");
+
+  // Prefer explicit translations passed in options, then a possible global container
+  // (e.g. globalThis.__translations[locale]), otherwise use an empty object.
+  const translationsForLocale: Record<string, any> =
+    options?.translations ?? (globalThis as any).__translations?.[locale] ?? {};
+
   const val = getNestedValue(translationsForLocale, pathSegments);
 
   if (val == null) {
     const fallback = options?.fallback ?? key;
-    console.warn(`Missing translation for key: ${key} (locale: ${locale}), falling back to: ${fallback}`);
+    console.warn(
+      `Missing translation for key: ${key} (locale: ${locale}), falling back to: ${fallback}`
+    );
     return fallback;
   }
 
@@ -41,8 +49,20 @@ export function translate(
 }
 
 export function createTranslator(messages: Messages, namespace?: string) {
-  return (key: string) => {
+  // Return a translator that looks up keys directly on the provided messages object.
+  return (key: string, options?: { fallback?: string }) => {
     const qualifiedKey = namespace ? `${namespace}.${key}` : key;
-    return translate(messages, qualifiedKey);
+    const pathSegments = qualifiedKey.split(".");
+    const val = getNestedValue(messages, pathSegments);
+
+    if (val == null) {
+      const fallback = options?.fallback ?? qualifiedKey;
+      console.warn(
+        `Missing translation for key: ${qualifiedKey}, falling back to: ${fallback}`
+      );
+      return fallback;
+    }
+
+    return String(val);
   };
 }
