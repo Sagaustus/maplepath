@@ -1,0 +1,35 @@
+{
+  "navigation": {
+    "skipToContent": "Skip to main content"
+  },
+  "languageSwitcher": {
+    "label": "Language",
+    "english": "English",
+    "french": "Français"
+  },
+  "home": {
+    "title": "Get started by editing",
+    "subtitle": "Build inclusive experiences with a ready-to-launch Next.js foundation.",
+    "cta": "Explore documentation",
+    "ctaDescription": "Read the project guide in the README.",
+    "featuresHeading": "What you'll find here",
+    "features": {
+      "accessibility": {
+        "title": "Accessible components",
+        "description": "Pre-configured focus styles, skip links and keyboard navigation support out of the box."
+      },
+      "internationalisation": {
+        "title": "Internationalisation ready",
+        "description": "Translate copy in multiple languages with persisted visitor preferences."
+      },
+      "performance": {
+        "title": "Production-grade performance",
+        "description": "Optimised assets and modern tooling keep experiences fast across locales."
+      }
+    },
+    "gettingStartedHeading": "Get started",
+    "gettingStartedDescription": "Use the documentation to customise styling, add new content sections, and deploy with confidence.",
+    "footerNote": "Crafted with accessibility and global users in mind.",
+    "Vercel": "By"
+  }
+}

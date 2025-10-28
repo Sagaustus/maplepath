@@ -1,26 +1,20 @@
 "use client";
-
-import { useCallback } from "react";
-
-const SAFE_EXIT_URL = "https://www.google.com";
+import React from "react";
 
 export default function QuickExitButton() {
-  const handleQuickExit = useCallback(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
+    const handleQuickExit = () => {
+        // immediate navigation to a privacy-oriented site
+        window.location.href = "https://duckduckgo.com/";
+    };
 
-    window.location.replace(SAFE_EXIT_URL);
-  }, []);
-
-  return (
-    <button
-      type="button"
-      onClick={handleQuickExit}
-      className="rounded-full bg-rose-500 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-rose-500/30 transition hover:bg-rose-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-200"
-      aria-label="Leave this site immediately and open a safe page"
-    >
-      Quick Exit
-    </button>
-  );
+    return (
+        <button
+            type="button"
+            onClick={handleQuickExit}
+            aria-label="Quick exit"
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-2xl bg-red-600 text-white hover:bg-red-700 shadow-sm"
+        >
+            Quick Exit
+        </button>
+    );
 }

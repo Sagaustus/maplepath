@@ -1,6 +1,6 @@
 # Maplepath
 
-This project was bootstrapped manually to match the default output of `create-next-app` with TypeScript, the App Router, Tailwind CSS, and an `@/*` import alias. It ships with accessible theming, skip links, a persistent quick-exit safety button, and a polished landing page you can customise quickly.
+This project was bootstrapped manually to match the default output of `create-next-app` with TypeScript, the App Router, Tailwind CSS, and an `@/*` import alias.
 
 ## Getting Started
 
