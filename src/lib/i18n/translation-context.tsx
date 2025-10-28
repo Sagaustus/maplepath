@@ -1,68 +1,64 @@
 "use client";
 
-import { createContext, useContext, useMemo } from "react";
-import type { ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useMemo,
+  type PropsWithChildren,
+} from "react";
 
-import type { Messages, Translator } from "./types";
-import { resolveMessages } from "./messages";
+import type { AppLocale } from "./config";
+import type { Messages } from "./types";
 import { createTranslator } from "./translator";
 
-interface TranslationProviderProps {
-  children: ReactNode;
-  locale: string;
-  messages: Messages | string | undefined;
-  namespace?: string;
-}
-
-interface TranslationContextValue {
-  locale: string;
-  translate: Translator;
-}
+type TranslationContextValue = {
+  locale: AppLocale;
+  messages: Messages;
+};
 
 const TranslationContext = createContext<TranslationContextValue | null>(null);
 
-export function TranslationProvider({ children, locale, messages, namespace }: TranslationProviderProps) {
-  if (messages === undefined) {
-    throw new Error("TranslationProvider requires resolved messages.");
-  }
-
-  const resolvedMessages = useMemo<Messages>(() => resolveMessages(messages), [messages]);
-
-  const translator = useMemo(
-    () => createTranslator({ messages: resolvedMessages, namespace }),
-    [namespace, resolvedMessages]
+export function TranslationsProvider({
+  children,
+  locale,
+  messages,
+}: PropsWithChildren<{
+  locale: AppLocale;
+  messages: Messages;
+}>) {
+  const value = useMemo(
+    () => ({ locale, messages }),
+    [locale, messages],
   );
 
-  const value = useMemo<TranslationContextValue>(
-    () => ({ locale, translate: translator }),
-    [locale, translator]
+  return (
+    <TranslationContext.Provider value={value}>
+      {children}
+    </TranslationContext.Provider>
   );
-
-  return <TranslationContext.Provider value={value}>{children}</TranslationContext.Provider>;
 }
 
-export function useTranslator() {
+function useTranslationContext() {
   const context = useContext(TranslationContext);
 
   if (!context) {
-    throw new Error("useTranslator must be used within a TranslationProvider");
+    throw new Error(
+      "useTranslations must be used within a TranslationsProvider",
+    );
   }
 
-  return context.translate;
+  return context;
 }
 
-export function useNamespacedTranslator(namespace: string) {
-  const translator = useTranslator();
-
-  return useMemo(() => (key: string, values?: Record<string, any>) => translator(`${namespace}.${key}`, values), [namespace, translator]);
+export function useLocale() {
+  return useTranslationContext().locale;
 }
 
-export function useCurrentLocale() {
-  const context = useContext(TranslationContext);
+export function useTranslations(namespace?: string) {
+  const { messages } = useTranslationContext();
 
-  if (!context) {
-    throw new Error("useCurrentLocale must be used within a TranslationProvider");
-  }
-
-  return context.locale;
+  return useMemo(
+    () => createTranslator({ messages, namespace }),
+    [messages, namespace],
+  );
 }

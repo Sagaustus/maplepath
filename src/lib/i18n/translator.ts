@@ -1,49 +1,40 @@
-import type { Messages, MessageValue, Translator } from "./types";
+import type { Messages } from "./types";
 
-interface CreateTranslatorOptions {
-  messages: Messages;
-  namespace?: string;
-}
+function getNestedValue(source: Messages | string, pathSegments: string[]): string {
+  const [segment, ...rest] = pathSegments;
 
-function resolvePath(root: MessageValue, path: string[]): MessageValue | undefined {
-  return path.reduce<MessageValue | undefined>((accumulator, segment) => {
-    if (accumulator && typeof accumulator === "object" && segment in accumulator) {
-      return accumulator[segment];
+  if (typeof source === "string") {
+    if (pathSegments.length === 0) {
+      return source;
     }
 
-    return undefined;
-  }, root);
-}
-
-function formatMessage(value: MessageValue, values?: Record<string, unknown>): string {
-  if (typeof value !== "string") {
-    return "";
+    throw new Error(`Expected object while resolving translation, received string at segment "${segment}"`);
   }
 
-  if (!values) {
-    return value;
+  const next = source[segment];
+
+  if (next == null) {
+    throw new Error(`Missing translation for key: ${pathSegments.join(".")}`);
   }
 
-  return value.replace(/\{(\w+)\}/g, (match, token) => {
-    if (token in values) {
-      return String(values[token]);
+  if (rest.length === 0) {
+    if (typeof next === "string") {
+      return next;
     }
 
-    return match;
-  });
+    throw new Error(`Expected string translation at key: ${segment}`);
+  }
+
+  return getNestedValue(next, rest);
 }
 
-export function createTranslator({ messages, namespace }: CreateTranslatorOptions): Translator {
-  const prefix = namespace ? namespace.split(".") : [];
+export function translate(messages: Messages, key: string): string {
+  return getNestedValue(messages, key.split("."));
+}
 
-  return (key, values) => {
-    const path = [...prefix, ...key.split(".")];
-    const value = resolvePath(messages, path);
-
-    if (value === undefined) {
-      return key;
-    }
-
-    return formatMessage(value, values);
+export function createTranslator(messages: Messages, namespace?: string) {
+  return (key: string) => {
+    const qualifiedKey = namespace ? `${namespace}.${key}` : key;
+    return translate(messages, qualifiedKey);
   };
 }
