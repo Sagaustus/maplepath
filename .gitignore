@@ -30,3 +30,6 @@ out
 
 # vercel
 .vercel
+
+# TypeScript
+*.tsbuildinfo
