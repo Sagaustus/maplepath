@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useTranslations } from "@/lib/i18n/translation-context";
 
 export default function Home() {
-  const t = useTranslations("HomePage");
+  const t = useTranslations("home");
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
