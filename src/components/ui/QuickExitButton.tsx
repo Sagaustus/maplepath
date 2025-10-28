@@ -1,16 +1,20 @@
 "use client";
 import React from "react";
-import Button from "./Button";
 
 export default function QuickExitButton() {
     const handleQuickExit = () => {
-        // immediate navigation to a privacy-oriented search (fast safe page)
+        // immediate navigation to a privacy-oriented site
         window.location.href = "https://duckduckgo.com/";
     };
 
     return (
-        <Button variant="danger" onClick={handleQuickExit} aria-label="Quick exit">
+        <button
+            type="button"
+            onClick={handleQuickExit}
+            aria-label="Quick exit"
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-2xl bg-red-600 text-white hover:bg-red-700 shadow-sm"
+        >
             Quick Exit
-        </Button>
+        </button>
     );
 }
