@@ -1,8 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
-import { defaultLocale, locales } from "@/lib/i18n/config";
+import { defaultLocale, locales, localeCookieName } from "@/lib/i18n/config";
 import Negotiator from "negotiator";
 
 function getLocale(request: NextRequest): string {
+  // First check for an explicit cookie set by the language switcher
+  const cookieLocale = request.cookies.get(localeCookieName)?.value;
+  if (cookieLocale && locales.includes(cookieLocale as any)) {
+    return cookieLocale;
+  }
+
   const negotiatorHeaders: Record<string, string> = {};
   request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
 

@@ -2,7 +2,7 @@
 
 import { useCallback, useTransition, type ChangeEvent } from "react";
 
-import { useLocale, useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "@/lib/i18n/translation-context";
 import { useRouter } from "next/navigation";
 
 import { locales, localeCookieName, type AppLocale } from "@/lib/i18n/config";

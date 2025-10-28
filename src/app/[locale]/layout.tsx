@@ -8,6 +8,7 @@ import type { AppLocale } from "@/lib/i18n/config";
 import QuickExitButton from "@/components/ui/QuickExitButton";
 import "../globals.css";
 import AppProviders from "@/components/providers/AppProviders";
+import { NextIntlClientProvider } from "next-intl";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -63,11 +64,13 @@ export default async function RootLayout({
         </header>
 
         <main id="content" className="container mx-auto p-6">
-          <AppProviders>
-            <TranslationsProvider locale={locale} messages={messages}>
-              {children}
-            </TranslationsProvider>
-          </AppProviders>
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            <AppProviders>
+              <TranslationsProvider locale={locale} messages={messages}>
+                {children}
+              </TranslationsProvider>
+            </AppProviders>
+          </NextIntlClientProvider>
         </main>
 
         <footer className="border-t bg-white">
