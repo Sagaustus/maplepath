@@ -14,7 +14,20 @@ function getNestedValue(source: Messages | string, pathSegments: string[]): stri
   const next = source[segment];
 
   if (next == null) {
-    throw new Error(`Missing translation for key: ${pathSegments.join(".")}`);
+    // previous behavior threw when a segment was missing; return undefined instead
+    const [next, ...rest] = pathSegments;
+    if (next == null) return obj;
+    if (obj == null || !(next in obj)) {
+      return undefined;
+    }
+
+    const nextVal = obj[next];
+
+    if (rest.length === 0) {
+      return nextVal;
+    }
+
+    return getNestedValue(nextVal, rest);
   }
 
   if (rest.length === 0) {
@@ -28,8 +41,21 @@ function getNestedValue(source: Messages | string, pathSegments: string[]): stri
   return getNestedValue(next, rest);
 }
 
-export function translate(messages: Messages, key: string): string {
-  return getNestedValue(messages, key.split("."));
+export function translate(
+  locale: string,
+  key: string,
+  options?: { fallback?: string }
+): string {
+  const pathSegments = key.split(".");
+  const val = getNestedValue(translationsForLocale, pathSegments);
+
+  if (val == null) {
+    const fallback = options?.fallback ?? key;
+    console.warn(`Missing translation for key: ${key} (locale: ${locale}), falling back to: ${fallback}`);
+    return fallback;
+  }
+
+  return String(val);
 }
 
 export function createTranslator(messages: Messages, namespace?: string) {
