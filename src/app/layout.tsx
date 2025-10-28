@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 import QuickExitButton from "@/components/ui/QuickExitButton";
+import AppProviders from "@/components/providers/AppProviders";
 
 import "./globals.css";
 
@@ -29,7 +30,7 @@ export default function RootLayout({
             </div>
           </header>
           <main id="main-content" className="flex-1">
-            {children}
+            <AppProviders>{children}</AppProviders>
           </main>
         </div>
       </body>
