@@ -3,34 +3,31 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: dark;
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
 }
 
 body {
-  min-height: 100vh;
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
 }
 
-.skip-link {
-  position: absolute;
-  top: 0.75rem;
-  left: 1rem;
-  translate: 0 -150%;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  background: #facc15;
-  color: #1f2937;
-  font-weight: 600;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-  transition: translate 150ms ease-in-out;
-}
-
-.skip-link:focus-visible {
-  translate: 0;
-}
-
-@layer base {
-  *:focus-visible {
-    outline: 2px solid #facc15;
-    outline-offset: 3px;
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
   }
 }

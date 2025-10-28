@@ -10,43 +10,32 @@ import ChatStream from "./ChatStream";
 import CitationsPanel from "./CitationsPanel";
 import GuidedJourneyCard from "./GuidedJourneyCard";
 import QuickTapChips from "./QuickTapChips";
-import ProvinceChip from "./ProvinceChip";
 
 export default function ChatPageContent() {
   const onboarding = useOnboardingState();
   const persona = getPersonaById(onboarding.personaId);
-  const arrivalStageLabel = onboarding.arrivalStage
-    ? {
-        planning: "Planning my move",
-        arrived: "Recently arrived",
-        settled: "Living here long-term",
-      }[onboarding.arrivalStage as "planning" | "arrived" | "settled"] ?? onboarding.arrivalStage
-    : "Not set";
 
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-6 py-10 lg:flex-row">
       <div className="flex-1 space-y-8">
         <header className="flex flex-col gap-4 rounded-3xl border border-slate-800 bg-slate-900/60 p-6 shadow-lg shadow-black/20">
-          <div className="flex flex-wrap items-start justify-between gap-4">
+          <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
               <h1 className="text-2xl font-semibold text-amber-200">Conversation hub</h1>
               <p className="mt-1 text-sm text-slate-300">
                 Chat with Maplepath to uncover resources, programs, and guidance tailored to your newcomer journey.
               </p>
             </div>
-            <div className="flex flex-wrap items-center gap-3">
-              {persona ? (
-                <PersonaBadge persona={persona} />
-              ) : (
-                <Link
-                  href="/"
-                  className="rounded-full border border-slate-800 bg-slate-900/70 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-slate-200 transition hover:border-amber-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200"
-                >
-                  Choose a persona
-                </Link>
-              )}
-              <ProvinceChip province={onboarding.province} city={onboarding.city} />
-            </div>
+            {persona ? (
+              <PersonaBadge persona={persona} />
+            ) : (
+              <Link
+                href="/"
+                className="rounded-full border border-slate-800 bg-slate-900/70 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-slate-200 transition hover:border-amber-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200"
+              >
+                Choose a persona
+              </Link>
+            )}
           </div>
           <QuickTapChips />
         </header>
@@ -81,7 +70,7 @@ export default function ChatPageContent() {
             </div>
             <div>
               <dt className="text-xs uppercase tracking-wide text-slate-400">Arrival stage</dt>
-              <dd>{arrivalStageLabel}</dd>
+              <dd>{onboarding.arrivalStage ? onboarding.arrivalStage : "Not set"}</dd>
             </div>
           </dl>
           <Link

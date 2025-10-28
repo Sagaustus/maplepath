@@ -1,9 +1,6 @@
 "use client";
 
-import { getPersonaById } from "@/data/personas";
-import { useOnboardingState } from "@/context/onboarding-context";
-
-const DEFAULT_LABELS = [
+const CHIP_LABELS = [
   "Find housing programs",
   "Explore language classes",
   "Check work permits",
@@ -12,13 +9,9 @@ const DEFAULT_LABELS = [
 ];
 
 export default function QuickTapChips() {
-  const { personaId } = useOnboardingState();
-  const persona = getPersonaById(personaId);
-  const labels = persona?.quickActions ?? DEFAULT_LABELS;
-
   return (
     <div className="flex flex-wrap gap-3">
-      {labels.map((label) => (
+      {CHIP_LABELS.map((label) => (
         <button
           key={label}
           type="button"
