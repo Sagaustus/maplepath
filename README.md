@@ -1,6 +1,6 @@
 # Maplepath
 
-This project was bootstrapped manually to match the default output of `create-next-app` with TypeScript, the App Router, Tailwind CSS, and an `@/*` import alias. It includes accessible theming and internationalisation powered by [`next-intl`](https://next-intl-docs.vercel.app/) with English and French translations.
+This project was bootstrapped manually to match the default output of `create-next-app` with TypeScript, the App Router, Tailwind CSS, and an `@/*` import alias.
 
 ## Getting Started
 

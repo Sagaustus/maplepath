@@ -1,3 +1,8 @@
-import type { AbstractIntlMessages } from "next-intl";
+export type Messages = {
+  [key: string]: string | Messages;
+};
 
-export type Messages = AbstractIntlMessages;
+export interface I18nContextValue {
+  locale: string;
+  messages: Messages;
+}
