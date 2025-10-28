@@ -58,11 +58,7 @@ export function useTranslations(namespace?: string) {
   const { messages } = useTranslationContext();
 
   return useMemo(
-    () =>
-      createTranslator({
-        messages: (messages ?? {}) as Messages,
-        namespace,
-      }),
+    () => createTranslator(messages, namespace),
     [messages, namespace],
   );
 }
