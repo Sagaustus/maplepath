@@ -1,25 +1,32 @@
 "use client";
 
-import { useCallback, useState, type ChangeEvent } from "react";
+import { useCallback, useTransition, type ChangeEvent } from "react";
 
-import { useLocale, useTranslations } from "@/lib/i18n/context";
+import { useLocale, useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
+
 import { locales, localeCookieName, type AppLocale } from "@/lib/i18n/config";
 
 const COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 365; // one year
 
 export function LanguageSwitcher() {
+  const router = useRouter();
   const locale = useLocale();
   const t = useTranslations("languageSwitcher");
-  const [isPending, setIsPending] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
-  const handleChange = useCallback((event: ChangeEvent<HTMLSelectElement>) => {
-    const nextLocale = event.target.value as AppLocale;
+  const handleChange = useCallback(
+    (event: ChangeEvent<HTMLSelectElement>) => {
+      const nextLocale = event.target.value as AppLocale;
 
-    document.cookie = `${localeCookieName}=${nextLocale}; path=/; max-age=${COOKIE_MAX_AGE_SECONDS}; SameSite=Lax`;
-    setIsPending(true);
+      document.cookie = `${localeCookieName}=${nextLocale}; path=/; max-age=${COOKIE_MAX_AGE_SECONDS}; SameSite=Lax`;
 
-    window.location.reload();
-  }, []);
+      startTransition(() => {
+        router.refresh();
+      });
+    },
+    [router]
+  );
 
   return (
     <label className="flex items-center gap-2 text-sm font-medium">
