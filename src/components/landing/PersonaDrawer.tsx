@@ -1,6 +1,6 @@
 "use client";
 
-import type { Persona } from "@/lib/personas";
+import type { Persona } from "@/data/personas";
 import { Fragment } from "react";
 
 export type PersonaDrawerProps = {

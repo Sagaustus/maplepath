@@ -1,6 +1,6 @@
 # Maplepath
 
-This project was bootstrapped manually to match the default output of `create-next-app` with TypeScript, the App Router, Tailwind CSS, and an `@/*` import alias. It now includes the Maplepath newcomer experience: a persona-driven landing page, consent ribbon, onboarding flow, and chat prototype with quick-exit support baked in.
+This project was bootstrapped manually to match the default output of `create-next-app` with TypeScript, the App Router, Tailwind CSS, and an `@/*` import alias.
 
 ## Getting Started
 
@@ -18,13 +18,7 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-Key screens live at:
-
-- `src/app/page.tsx` – persona grid, consent ribbon, and calls to action.
-- `src/app/onboarding/page.tsx` – form for province, city, needs, and arrival stage stored in context.
-- `src/app/chat/page.tsx` – chat stream with quick actions, citations placeholder, and guided journey card.
-
-The pages auto-update as you edit them.
+You can start editing the page by modifying `src/app/page.tsx`. The page auto-updates as you edit the file.
 
 ## Learn More
 

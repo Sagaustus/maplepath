@@ -22,19 +22,18 @@ const PROVINCES = [
 ];
 
 const NEED_OPTIONS = [
-  "Health",
   "Housing",
-  "IDs",
-  "School",
-  "Work",
-  "Legal",
-  "Transit",
+  "Employment",
+  "Healthcare",
+  "Education",
+  "Legal support",
+  "Language training",
 ];
 
 const ARRIVAL_STAGES = [
-  { id: "0-3", label: "0–3 months in Canada" },
-  { id: "3-12", label: "3–12 months in Canada" },
-  { id: "12-plus", label: "12+ months in Canada" },
+  { id: "planning", label: "Planning my move" },
+  { id: "arrived", label: "Recently arrived" },
+  { id: "settled", label: "Living here long-term" },
 ];
 
 export default function OnboardingForm() {
@@ -141,11 +140,11 @@ export default function OnboardingForm() {
               >
                 <span className="font-semibold text-amber-100">{stage.label}</span>
                 <span className="mt-2 text-xs text-slate-400">
-                  {stage.id === "0-3"
-                    ? "Just landed and figuring out first steps."
-                    : stage.id === "3-12"
-                      ? "Getting established and expanding supports."
-                      : "Staying long-term and planning for stability."}
+                  {stage.id === "planning"
+                    ? "Gathering requirements before arriving."
+                    : stage.id === "arrived"
+                      ? "Settling in and exploring local services."
+                      : "Building long-term stability and community."}
                 </span>
                 <input
                   type="radio"

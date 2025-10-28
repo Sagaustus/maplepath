@@ -1,10 +1,8 @@
 "use client";
 
-import type { Persona } from "@/lib/personas";
 import {
   createContext,
   useContext,
-  useEffect,
   useMemo,
   useReducer,
   type Dispatch,
@@ -12,7 +10,7 @@ import {
 } from "react";
 
 export type OnboardingState = {
-  personaId?: Persona["id"];
+  personaId?: string;
   province: string;
   city: string;
   needs: string[];
@@ -20,7 +18,7 @@ export type OnboardingState = {
 };
 
 type OnboardingAction =
-  | { type: "setPersona"; personaId: Persona["id"] }
+  | { type: "setPersona"; personaId: string }
   | { type: "updateProvince"; province: string }
   | { type: "updateCity"; city: string }
   | { type: "toggleNeed"; need: string }
@@ -34,8 +32,6 @@ const INITIAL_STATE: OnboardingState = {
   needs: [],
   arrivalStage: undefined,
 };
-
-const STORAGE_KEY = "maplepath:onboarding";
 
 const OnboardingStateContext = createContext<OnboardingState | undefined>(
   undefined,
@@ -88,46 +84,12 @@ function onboardingReducer(
   }
 }
 
-function getInitialState(): OnboardingState {
-  if (typeof window === "undefined") {
-    return INITIAL_STATE;
-  }
-
-  try {
-    const storedValue = window.sessionStorage.getItem(STORAGE_KEY);
-    if (!storedValue) {
-      return INITIAL_STATE;
-    }
-
-    const parsed = JSON.parse(storedValue) as Partial<OnboardingState>;
-    return {
-      ...INITIAL_STATE,
-      ...parsed,
-      needs: Array.isArray(parsed.needs) ? parsed.needs : INITIAL_STATE.needs,
-    };
-  } catch (error) {
-    return INITIAL_STATE;
-  }
-}
-
 export function OnboardingProvider({
   children,
 }: {
   children: ReactNode;
 }) {
-  const [state, dispatch] = useReducer(
-    onboardingReducer,
-    INITIAL_STATE,
-    getInitialState,
-  );
-
-  useEffect(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
-
-    window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  }, [state]);
+  const [state, dispatch] = useReducer(onboardingReducer, INITIAL_STATE);
 
   const memoizedState = useMemo(() => state, [state]);
 

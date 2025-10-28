@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { personas, type Persona } from "@/lib/personas";
+import { personas, type Persona } from "@/data/personas";
 import { useOnboarding } from "@/context/onboarding-context";
 
 import PersonaDrawer from "./PersonaDrawer";

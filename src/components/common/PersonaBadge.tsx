@@ -1,4 +1,4 @@
-import type { Persona } from "@/lib/personas";
+import type { Persona } from "@/data/personas";
 
 export default function PersonaBadge({ persona }: { persona: Persona }) {
   return (
