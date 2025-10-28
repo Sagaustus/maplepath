@@ -1,35 +1,43 @@
 import type { Messages } from "./types";
 
-function getNestedValue(source: Messages | string, pathSegments: string[]): string {
-  const [segment, ...rest] = pathSegments;
+function getNestedValue(obj: any, pathSegments: string[]): any {
+  // handle empty path
+  if (!pathSegments || pathSegments.length === 0) return obj;
 
-  if (typeof source === "string") {
-    if (pathSegments.length === 0) {
-      return source;
-    }
+  const [next, ...rest] = pathSegments;
 
-    throw new Error(`Expected object while resolving translation, received string at segment "${segment}"`);
+  // if next segment is not present, just return the current object
+  if (next == null) return obj;
+
+  // if current object is null/undefined or doesn't contain the key, return undefined
+  if (obj == null || typeof obj !== "object" || !(next in obj)) {
+    return undefined;
   }
 
-  const next = source[segment];
-
-  if (next == null) {
-    throw new Error(`Missing translation for key: ${pathSegments.join(".")}`);
-  }
+  const nextVal = (obj as any)[next];
 
   if (rest.length === 0) {
-    if (typeof next === "string") {
-      return next;
-    }
-
-    throw new Error(`Expected string translation at key: ${segment}`);
+    return nextVal;
   }
 
-  return getNestedValue(next, rest);
+  return getNestedValue(nextVal, rest);
 }
 
-export function translate(messages: Messages, key: string): string {
-  return getNestedValue(messages, key.split("."));
+export function translate(
+  locale: string,
+  key: string,
+  options?: { fallback?: string }
+): string {
+  const pathSegments = key.split(".");
+  const val = getNestedValue(translationsForLocale, pathSegments);
+
+  if (val == null) {
+    const fallback = options?.fallback ?? key;
+    console.warn(`Missing translation for key: ${key} (locale: ${locale}), falling back to: ${fallback}`);
+    return fallback;
+  }
+
+  return String(val);
 }
 
 export function createTranslator(messages: Messages, namespace?: string) {
