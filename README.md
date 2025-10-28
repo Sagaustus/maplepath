@@ -1,6 +1,6 @@
 # Maplepath
 
-This project was bootstrapped manually to match the default output of `create-next-app` with TypeScript, the App Router, Tailwind CSS, and an `@/*` import alias. It includes accessible theming and internationalisation with English and French translations managed through a lightweight in-house i18n helper.
+This project was bootstrapped manually to match the default output of `create-next-app` with TypeScript, the App Router, Tailwind CSS, and an `@/*` import alias.
 
 ## Getting Started
 

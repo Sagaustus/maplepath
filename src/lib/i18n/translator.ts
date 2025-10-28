@@ -1,33 +1,40 @@
 import type { Messages } from "./types";
 
-type CreateTranslatorArgs = {
-  messages: Messages;
-  namespace?: string;
-};
+function getNestedValue(source: Messages | string, pathSegments: string[]): string {
+  const [segment, ...rest] = pathSegments;
 
-function resolveMessage(messages: Messages, key: string): string {
-  const segments = key.split(".");
-  let current: unknown = messages;
-
-  for (const segment of segments) {
-    if (typeof current !== "object" || current === null) {
-      return key;
+  if (typeof source === "string") {
+    if (pathSegments.length === 0) {
+      return source;
     }
 
-    const nextValue = (current as Record<string, unknown>)[segment];
-
-    if (nextValue === undefined) {
-      return key;
-    }
-
-    current = nextValue;
+    throw new Error(`Expected object while resolving translation, received string at segment "${segment}"`);
   }
 
-  return typeof current === "string" ? current : key;
+  const next = source[segment];
+
+  if (next == null) {
+    throw new Error(`Missing translation for key: ${pathSegments.join(".")}`);
+  }
+
+  if (rest.length === 0) {
+    if (typeof next === "string") {
+      return next;
+    }
+
+    throw new Error(`Expected string translation at key: ${segment}`);
+  }
+
+  return getNestedValue(next, rest);
 }
 
-export function createTranslator({ messages, namespace }: CreateTranslatorArgs) {
-  const prefix = namespace ? `${namespace}.` : "";
+export function translate(messages: Messages, key: string): string {
+  return getNestedValue(messages, key.split("."));
+}
 
-  return (key: string) => resolveMessage(messages, `${prefix}${key}`);
+export function createTranslator(messages: Messages, namespace?: string) {
+  return (key: string) => {
+    const qualifiedKey = namespace ? `${namespace}.${key}` : key;
+    return translate(messages, qualifiedKey);
+  };
 }
