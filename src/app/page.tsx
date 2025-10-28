@@ -1,114 +1,80 @@
-import Link from "next/link";
-
-import ConsentRibbon from "@/components/landing/ConsentRibbon";
-import PersonaGrid from "@/components/landing/PersonaGrid";
-
-const steps = [
+const featureCards = [
   {
-    title: "Pick a persona",
+    title: "Accessibility first",
     description:
-      "Choose a starting character that reflects the newcomer you’re designing for. Each persona highlights unique goals and constraints.",
+      "Skip links, sensible headings, and high-contrast defaults give you a strong baseline for inclusive experiences.",
   },
   {
-    title: "Capture context",
+    title: "Developer friendly",
     description:
-      "Fill out the onboarding form to share location, needs, and arrival stage so Maplepath can tailor the guidance it surfaces.",
+      "Comes with TypeScript, ESLint, and Tailwind CSS so you can start building without the usual boilerplate.",
   },
   {
-    title: "Explore resources",
+    title: "Production ready",
     description:
-      "Use the chat workspace to discover vetted programs, rapid actions, and guided journeys that keep newcomers moving forward.",
+      "Optimised Next.js App Router setup that deploys cleanly to platforms like Vercel.",
+  },
+  {
+    title: "Customisable",
+    description:
+      "Clean project structure that is easy to extend with your own pages, API routes, and components.",
   },
 ];
 
 export default function Home() {
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-12 px-6 py-12 lg:py-16">
-      <section
-        aria-labelledby="landing-hero"
-        className="grid gap-8 rounded-3xl border border-slate-800 bg-slate-950/60 p-8 shadow-xl shadow-black/30 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]"
-      >
-        <div className="space-y-6">
-          <h1 id="landing-hero" className="text-4xl font-bold tracking-tight md:text-5xl">
-            Design safer newcomer journeys with confidence
+    <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-12 px-6 py-12 lg:py-16">
+      <section aria-labelledby="welcome-heading" className="space-y-6">
+        <div className="space-y-4">
+          <h1 id="welcome-heading" className="text-4xl font-bold tracking-tight md:text-5xl">
+            Maplepath accelerates accessible web apps
           </h1>
           <p className="max-w-2xl text-lg text-slate-300">
-            Maplepath pairs trauma-informed accessibility with rapid prototyping tools so you can test support flows quickly and
-            responsibly.
-          </p>
-          <div className="flex flex-wrap items-center gap-3">
-            <Link
-              href="/onboarding"
-              className="inline-flex items-center gap-2 rounded-full bg-amber-400 px-5 py-3 text-base font-semibold text-slate-950 shadow-lg transition hover:bg-amber-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200"
-            >
-              Start onboarding
-            </Link>
-            <Link
-              href="/chat"
-              className="inline-flex items-center gap-2 rounded-full border border-amber-300/50 bg-transparent px-5 py-3 text-base font-semibold text-amber-200 transition hover:border-amber-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200"
-            >
-              Jump to chat
-            </Link>
-          </div>
-        </div>
-        <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 text-sm text-slate-200">
-          <h2 className="text-base font-semibold uppercase tracking-wide text-amber-200">
-            Consent ribbon
-          </h2>
-          <p className="mt-2 text-sm text-slate-300">
-            Keep the quick-exit button visible, offer anonymous browsing, and invite progress saving for folks who want to come
-            back later.
-          </p>
-          <p className="mt-4 text-xs text-slate-500">
-            Maplepath keeps this safety messaging in view across the experience.
+            Start from a polished Next.js foundation that pairs modern tooling with thoughtful accessibility defaults.
           </p>
         </div>
-      </section>
-
-      <section aria-labelledby="persona-section" className="space-y-6">
-        <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
-          <div>
-            <h2 id="persona-section" className="text-2xl font-semibold text-amber-200">
-              Choose a persona to shape the journey
-            </h2>
-            <p className="text-sm text-slate-300">
-              Personas capture lived experiences so research, content, and features land with empathy.
-            </p>
-          </div>
-          <Link
-            href="/onboarding"
-            className="rounded-full border border-slate-800 bg-slate-900/70 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-slate-200 transition hover:border-amber-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200"
+        <div>
+          <a
+            className="inline-flex items-center gap-2 rounded-full bg-amber-400 px-5 py-2 text-base font-semibold text-slate-900 shadow-lg transition hover:bg-amber-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200"
+            href="https://github.com/Sagaustus/maplepath#readme"
+            target="_blank"
+            rel="noreferrer"
           >
-            Continue without selecting
-          </Link>
+            Explore the documentation
+          </a>
+          <p className="mt-2 text-sm text-slate-400">Learn how to run the project, customise it, and deploy confidently.</p>
         </div>
-        <PersonaGrid />
       </section>
 
-      <ConsentRibbon />
-
-      <section aria-labelledby="workflow-heading" className="space-y-6">
-        <h2 id="workflow-heading" className="text-2xl font-semibold text-amber-200">
-          How Maplepath flows
+      <section aria-labelledby="features-heading" className="space-y-6">
+        <h2 id="features-heading" className="text-2xl font-semibold">
+          Everything you need to ship quickly
         </h2>
-        <ol className="grid gap-4 md:grid-cols-3">
-          {steps.map((step, index) => (
+        <ul className="grid gap-6 md:grid-cols-2">
+          {featureCards.map((feature) => (
             <li
-              key={step.title}
-              className="rounded-3xl border border-slate-800 bg-slate-900/60 p-6 shadow-lg shadow-black/20"
+              key={feature.title}
+              className="rounded-xl border border-slate-800 bg-slate-900/60 p-6 shadow-lg shadow-black/30"
             >
-              <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                Step {index + 1}
-              </span>
-              <h3 className="mt-2 text-lg font-semibold text-amber-200">{step.title}</h3>
-              <p className="mt-2 text-sm text-slate-300">{step.description}</p>
+              <h3 className="text-xl font-semibold text-amber-300">{feature.title}</h3>
+              <p className="mt-3 text-sm leading-6 text-slate-300">{feature.description}</p>
             </li>
           ))}
-        </ol>
+        </ul>
+      </section>
+
+      <section aria-labelledby="getting-started-heading" className="space-y-4">
+        <h2 id="getting-started-heading" className="text-2xl font-semibold">
+          Get started in minutes
+        </h2>
+        <p className="max-w-2xl text-base text-slate-300">
+          Clone the repository, install dependencies, and run the development server with <code>npm run dev</code> or your
+          preferred package manager. Update the Tailwind config and pages directory to add new experiences.
+        </p>
       </section>
 
       <footer className="border-t border-slate-800 pt-6 text-sm text-slate-400">
-        Built with Next.js 14, Tailwind CSS, and a focus on inclusive design for newcomers.
+        Built with Next.js 14, Tailwind CSS, and a focus on inclusive design.
       </footer>
     </div>
   );
