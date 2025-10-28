@@ -1,0 +1,34 @@
+{
+  "navigation": {
+    "skipToContent": "Aller au contenu principal"
+  },
+  "languageSwitcher": {
+    "label": "Langue",
+    "english": "Anglais",
+    "french": "Français"
+  },
+  "home": {
+    "title": "Bienvenue sur Maplepath",
+    "subtitle": "Créez des expériences inclusives avec une base Next.js prête à l'emploi.",
+    "cta": "Consulter la documentation",
+    "ctaDescription": "Lisez le guide du projet dans le README.",
+    "featuresHeading": "Ce que vous trouverez ici",
+    "features": {
+      "accessibility": {
+        "title": "Composants accessibles",
+        "description": "Styles de focus, liens d'évitement et navigation clavier configurés par défaut."
+      },
+      "internationalisation": {
+        "title": "Prêt pour l'internationalisation",
+        "description": "Traduisez le contenu dans plusieurs langues avec la préférence visiteur mémorisée."
+      },
+      "performance": {
+        "title": "Performances dignes de la production",
+        "description": "Des ressources optimisées et des outils modernes maintiennent la rapidité dans toutes les langues."
+      }
+    },
+    "gettingStartedHeading": "Pour commencer",
+    "gettingStartedDescription": "Utilisez la documentation pour personnaliser le style, ajouter des sections et déployer en toute confiance.",
+    "footerNote": "Conçu en pensant à l'accessibilité et aux utilisateurs du monde entier."
+  }
+}
